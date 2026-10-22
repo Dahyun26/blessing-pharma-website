@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HealthPlus Pharmacy and Medical Supplies provides pharmaceutical products and healthcare supplies.">
+
+    <title>Blessing Pharma and Medical Supplies Trading.</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+    <div class="container nav">
+
+    <a class="brand" href="#home">
+    <img
+        src="images/logo.png"
+        alt="Blessing Pharma Logo"
+        class="logo"
+    >
+
+    <div class="brand-text">
+        <div class="brand-name">
+            Blessing<span>Pharma</span>
+        </div>
+        <small>and &amp; Medical Supplies Trading.</small>
+    </div>
+</a>
+
+        <button class="mobile-menu" id="menuToggle" aria-label="Toggle navigation">
+            ☰ Menu
+        </button>
+
+        <nav class="navlinks" id="navlinks">
+    <a class="active" href="#home">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="#products">Products</a>
+    <a href="#services">Services</a>
+    <a href="contact.html">Contact Us</a>
+</nav>
+
+        <form class="search" id="searchForm">
+            <span>⌕</span>
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="Search for products or services..."
+                aria-label="Search products">
+            <button type="submit" aria-label="Search">⌕</button>
+        </form>
+
+
+    </div>
+</header>
+
+<main>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="container hero-inner">
+
+            <div class="hero-copy">
+                <div class="script">Your Health ♡ Our Priority</div>
+
+                <h1>
+                    Basta Blessing Pharma
+                    <span class="green">Kalidad</span>
+                    <span> at</span>
+                    <span class="yellow">Abot Kaya</span>
+                </h1>
+
+                <p>
+                    We provide high-quality pharmaceutical products and
+                    medical supplies to support healthcare professionals,
+                    clinics, hospitals, and the communities they serve.
+                </p>
+
+                <div class="actions">
+                    <a class="btn" href="#products">
+                        Explore Our Products <span>→</span>
+                    </a>
+
+                    <a class="btn outline" href=about.html>
+                        Learn About Us
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-art">
+                <img
+                     src="images/main.png"
+                    alt="Healthcare professional"
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="benefits" id="services">
+        <div class="container benefit-grid">
+
+            <div class="benefit">
+    <div class="benefit-icon">
+        <i class="fa-solid fa-shield-heart"></i>
+    </div>
+    <div>
+        <strong>Quality Products</strong>
+        <small>Only trusted and certified<br>brands and suppliers.</small>
+    </div>
+</div>
+
+<div class="benefit">
+    <div class="benefit-icon">
+        <i class="fa-solid fa-truck-fast"></i>
+    </div>
+    <div>
+        <strong>Reliable Delivery</strong>
+        <small>On-time and efficient<br>supply services.</small>
+    </div>
+</div>
+
+<div class="benefit">
+    <div class="benefit-icon">
+        <i class="fa-solid fa-heart"></i>
+    </div>
+    <div>
+        <strong>Professional Support</strong>
+        <small>Dedicated team for<br>your healthcare needs.</small>
+    </div>
+</div>
+
+<div class="benefit">
+    <div class="benefit-icon">
+        <i class="fa-solid fa-handshake"></i>
+    </div>
+    <div>
+        <strong>Long-Term Partnerships</strong>
+        <small>Growing together for<br>a healthier community.</small>
+    </div>
+</div>
+
+        </div>
+    </section>
+
+
+    <!-- PRODUCTS -->
+    <section class="products" id="products">
+        <div class="container">
+
+            <div class="section-top">
+                <div>
+                    <div class="section-script">Our Products</div>
+                    <h2 class="section-title">
+                        Wide Range of Healthcare Products
+                    </h2>
+                </div>
+
+                <a class="view-all" href="#contact">
+                    View All Products →
+                </a>
+            </div>
+
+            <div class="product-grid" id="productGrid">
+
+                <article class="product-card"
+                    data-search="pharmaceutical medicine tablets pills">
+                    <div class="product-heading">
+                        <span class="product-icon">💊</span>
+                        <strong>Pharmaceutical Products</strong>
+                    </div>
+                    <img class="product-img"
+                        src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80"
+                        alt="Pharmaceutical products">
+                    <p>Branded and generic medicines for your health needs.</p>
+                    <a href="#contact">View Products →</a>
+                </article>
+
+                <article class="product-card"
+                    data-search="medical equipment blood pressure monitor">
+                    <div class="product-heading">
+                        <span class="product-icon">▣</span>
+                        <strong>Medical Equipment</strong>
+                    </div>
+                    <img class="product-img"
+                        src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=500&q=80"
+                        alt="Medical equipment">
+                    <p>Reliable equipment for accurate diagnosis and treatment.</p>
+                    <a href="#contact">View Products →</a>
+                </article>
+
+                <article class="product-card"
+                    data-search="hospital clinic supplies">
+                    <div class="product-heading">
+                        <span class="product-icon">🛡</span>
+                        <strong>Hospital &amp; Clinic Supplies</strong>
+                    </div>
+                    <img class="product-img"
+                        src="https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=500&q=80"
+                        alt="Hospital supplies">
+                    <p>Essential supplies for hospitals, clinics, and healthcare facilities.</p>
+                    <a href="#contact">View Products →</a>
+                </article>
+
+                <article class="product-card"
+                    data-search="personal protective equipment ppe masks gloves">
+                    <div class="product-heading">
+                        <span class="product-icon">🥽</span>
+                        <strong>Personal Protective Equipment (PPE)</strong>
+                    </div>
+                    <img class="product-img"
+                        src="https://images.unsplash.com/photo-1584634731339-252c581abfc5?auto=format&fit=crop&w=500&q=80"
+                        alt="Protective equipment">
+                    <p>Stay safe with our high-quality PPE products.</p>
+                    <a href="#contact">View Products →</a>
+                </article>
+
+                <article class="product-card"
+                    data-search="first aid supplies emergency kit">
+                    <div class="product-heading">
+                        <span class="product-icon">✚</span>
+                        <strong>First-Aid Supplies</strong>
+                    </div>
+                    <img class="product-img"
+                        src="https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=500&q=80"
+                        alt="First aid supplies">
+                    <p>Be ready for emergencies anytime, anywhere.</p>
+                    <a href="#contact">View Products →</a>
+                </article>
+
+                <article class="product-card"
+                    data-search="diagnostic equipment thermometer monitor">
+                    <div class="product-heading">
+                        <span class="product-icon">🩺</span>
+                        <strong>Diagnostic Equipment</strong>
+                    </div>
+                    <img class="product-img"
+                        src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=500&q=80"
+                        alt="Diagnostic equipment">
+                    <p>Accurate results for better healthcare decisions.</p>
+                    <a href="#contact">View Products →</a>
+                </article>
+
+            </div>
+
+            <p id="noResults" class="no-results">
+                No matching product categories found.
+            </p>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="why" id="why-us">
+        <div class="container why-grid">
+
+            <div>
+                <h2>Why Choose Blessing Pharma?</h2>
+                <div class="underbar"></div>
+
+                
+<p class="why-intro">
+    We go beyond supplies we provide peace of mind.
+</p>
+
+<div class="why-items">
+
+    <div class="why-item">
+        <div class="round-icon">
+            <i class="fa-solid fa-shield-heart"></i>
+        </div>
+        <div>
+            <strong>Quality Products</strong>
+            <small>Trusted brands and certified supplies.</small>
+        </div>
+    </div>
+
+    <div class="why-item">
+        <div class="round-icon">
+            <i class="fa-solid fa-user-doctor"></i>
+        </div>
+        <div>
+            <strong>Expert Support</strong>
+            <small>Our team is here to help you.</small>
+        </div>
+    </div>
+
+    <div class="why-item">
+        <div class="round-icon">
+            <i class="fa-solid fa-truck-fast"></i>
+        </div>
+        <div>
+            <strong>Timely Delivery</strong>
+            <small>Keeping your operations running smoothly.</small>
+        </div>
+    </div>
+
+    <div class="why-item">
+        <div class="round-icon">
+            <i class="fa-solid fa-handshake-angle"></i>
+        </div>
+        <div>
+            <strong>Community Focus</strong>
+            <small>Supporting healthier communities.</small>
+        </div>
+    </div>
+
+</div>
+
+            </div>
+
+            <img class="why-art"
+                src="images/footer.png"
+                alt="Blessing Pharma and Medical Supplies Trading.">
+
+        </div>
+    </section>
+</main>
+
+
+<script src="script.js"></script>
+</body>
+</html>
