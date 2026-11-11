@@ -1401,6 +1401,129 @@ iframe {
     cursor: default;
 }
 
+/* ==========================================
+   CONTACT PAGE TRANSITIONS
+========================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+
+    /* HERO: SLIDE IN FROM THE RIGHT */
+    .contact-hero-reveal {
+        opacity: 0;
+        transform: translateX(60px);
+        transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .contact-hero-reveal.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* CONTACT INFORMATION: FROM THE LEFT */
+    .contact-info-reveal {
+        opacity: 0;
+        transform: translateX(-60px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .contact-info-reveal.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* CONTACT FORM: FROM THE RIGHT */
+    .contact-form-reveal {
+        opacity: 0;
+        transform: translateX(60px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .contact-form-reveal.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* CONTACT INFORMATION ITEMS */
+    .contact-item-reveal {
+        opacity: 0;
+        transform: translateY(25px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .contact-item-reveal.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* CONTACT NOTE */
+    .contact-note-reveal {
+        opacity: 0;
+        transform: translateX(-35px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .contact-note-reveal.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* LOCATION HEADING */
+    .location-heading-reveal {
+        opacity: 0;
+        transform: translateX(-45px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .location-heading-reveal.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* GOOGLE MAP */
+    .map-card-reveal {
+        opacity: 0;
+        transform: translateY(35px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .map-card-reveal.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* SUBTLE HOVER EFFECTS */
+    .info-item {
+        transition: transform 0.3s ease;
+    }
+
+    .info-item:hover {
+        transform: translateX(5px);
+    }
+
+    .info-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .info-item:hover .info-icon {
+        transform: scale(1.08);
+    }
+}
+
+/* ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+    .contact-hero-reveal,
+    .contact-info-reveal,
+    .contact-form-reveal,
+    .contact-item-reveal,
+    .contact-note-reveal,
+    .location-heading-reveal,
+    .map-card-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
 
 /* TABLET AND MOBILE */
 

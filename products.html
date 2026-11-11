@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore medical supplies, equipment, and healthcare products from Blessing Pharma and Medical Supplies Trading. Request a quotation today.">
+  <title>Products | Blessing Pharma and Medical Supplies Trading</title>
+
+  <link rel="stylesheet" href="products.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container nav">
+
+    <a class="brand" href="index.html">
+    <img
+        src="images/logo.png"
+        alt="Blessing Pharma Logo"
+        class="logo"
+    >
+
+    <div class="brand-text">
+        <div class="brand-name">
+            Blessing<span>Pharma</span>
+        </div>
+        <small>and Medical Supplies Trading</small>
+    </div>
+</a>
+
+        <button class="mobile-menu" id="menuToggle" aria-label="Toggle navigation">
+            ☰ Menu
+        </button>
+
+        <nav class="navlinks" id="navlinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a class="active" href="products.html">Products</a>
+    <a href="services.html">Services</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="contact.html">Contact Us</a>
+</nav>
+
+        <form class="search" id="searchForm">
+            <span>⌕</span>
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="Search for products or services..."
+                aria-label="Search products">
+            <button type="submit" aria-label="Search">⌕</button>
+        </form>
+
+
+    </div>
+</header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow"><i class="fa-solid fa-heart-pulse"></i> OUR PRODUCT CATALOG</span>
+        <h1>Healthcare Essentials,<br><span>All in One Place.</span></h1>
+        <p>
+          Discover quality medical supplies and healthcare essentials
+          for hospitals, clinics, businesses, and healthcare professionals.
+        </p>
+        <a href="#products" class="btn btn-yellow">
+          Explore Products <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <div class="hero-note">
+          <i class="fa-solid fa-circle-check"></i>
+          Quality Products. Reliable Service.
+        </div>
+      </div>
+
+      <i class="fa-solid fa-house-medical hero-bg-icon-1"></i>
+<i class="fa-solid fa-kit-medical hero-bg-icon-2"></i>
+
+      <div class="hero-image">
+        <img
+          src="images/products.jfif"
+          alt="Healthcare professional with medical equipment">
+      </div>
+      <div class="hero-decoration"></div>
+    </section>
+
+    <!-- PRODUCT CATALOG -->
+    <section class="catalog section" id="products">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">EXPLORE OUR SELECTION</span>
+          <h2>Our <span>Products</span></h2>
+          <p>Find the supplies you need and request a quotation from our team.</p>
+        </div>
+        <div class="catalog-count">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span><strong id="productCount">8</strong> products</span>
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="catalog-toolbar">
+        <label class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="search" id="productSearch"
+            placeholder="Search for products..."
+            aria-label="Search products">
+          <button id="clearSearch" type="button" aria-label="Clear search" hidden>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </label>
+
+        <label class="sort-box">
+          <i class="fa-solid fa-sliders"></i>
+          <select id="sortProducts" aria-label="Sort products">
+            <option value="default">Recommended</option>
+            <option value="az">Name: A to Z</option>
+            <option value="za">Name: Z to A</option>
+          </select>
+        </label>
+      </div>
+
+            <!-- BRANCH SELECTOR -->
+      <div class="branch-selector">
+        <div class="branch-selector-info">
+          <span class="eyebrow">OUR LOCATIONS</span>
+          <h3>Select a Branch</h3>
+          <p>Explore product availability at your preferred branch.</p>
+        </div>
+
+        <div class="branch-selector-control">
+          <label for="branchSelector">
+            <i class="fa-solid fa-location-dot"></i>
+            Choose Branch
+          </label>
+
+          <select id="branchSelector" aria-label="Select a branch">
+            <option value="main">Barangay 11, Batangas City Branch</option>
+            <option value="coming-soon">Coming Soon</option>
+          </select>
+        </div>
+
+        <div class="branch-status-message" id="branchStatusMessage" aria-live="polite">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Viewing products for Main Branch.</span>
+        </div>
+      </div>
+
+      <!-- CATEGORY FILTERS -->
+      <div class="category-filters" id="categoryFilters" aria-label="Filter products by category">
+        <button class="filter-btn active" data-category="all">All Products</button>
+        <button class="filter-btn" data-category="medical-supplies">Medical and Hospital Supplies</button>
+        <button class="filter-btn" data-category="medical-equipment">Medical Devices and Equipment</button>
+        <button class="filter-btn" data-category="personal-care">Personal Protective Care</button>
+      </div>
+
+      <!-- PRODUCT CARDS -->
+      <div class="product-grid" id="productGrid">
+    <div class="catalog-loading" id="catalogLoading">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        <p>Loading products...</p>
+    </div>
+</div>
+
+      <div class="no-results" id="noResults" hidden>
+        <i class="fa-solid fa-box-open"></i>
+        <h3>No products found</h3>
+        <p>Try another search term or choose a different category.</p>
+        <button class="btn btn-green" id="resetFilters" type="button">Show All Products</button>
+      </div>
+    </section>
+
+    <!-- PRODUCT DETAILS MODAL -->
+<div class="product-modal" id="productModal" hidden aria-hidden="true">
+  <div class="modal-overlay" data-close-modal></div>
+
+  <div
+    class="modal-content"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+  >
+    <button
+      class="modal-close"
+      type="button"
+      aria-label="Close product details"
+      data-close-modal
+    >
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <span class="eyebrow">PRODUCT DETAILS</span>
+    <h2 id="modalTitle">Product Name</h2>
+    <p id="modalDescription">Product description</p>
+
+    <button
+      class="btn btn-green"
+      id="modalQuote"
+      type="button"
+    >
+      Request a Quote
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+</div>
+
+    
+
+
+  </main>
+
+
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="products.js"></script>
+</body>
+</html>

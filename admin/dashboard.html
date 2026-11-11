@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Blessing Pharma</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <img src="img/logo.png" alt="Blessing Pharma Logo">
+                <div>
+                    <h2>Blessing <span>Pharma</span></h2>
+                    <small>Admin Panel</small>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="active">
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button id="logoutButton" class="logout-button">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <button class="menu-toggle" id="menuToggle"
+                        aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Manage your product availability</p>
+                </div>
+
+                <div class="admin-profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Administrator</span>
+                </div>
+            </header>
+
+            <section class="welcome-section">
+                <div>
+                    <h2>Welcome, Administrator!</h2>
+                    <p>Manage the availability of your Blessing Pharma products.</p>
+                </div>
+                <span class="date-display" id="currentDate"></span>
+            </section>
+
+            <!-- SUMMARY CARDS -->
+            <section class="summary-cards">
+
+                <div class="summary-card total-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-boxes-stacked"></i>
+                    </div>
+                    <div>
+                        <p>Total Products</p>
+                        <h2 id="totalProducts">0</h2>
+                    </div>
+                </div>
+
+                <div class="summary-card available-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <p>Available</p>
+                        <h2 id="availableProducts">0</h2>
+                    </div>
+                </div>
+
+                <div class="summary-card unavailable-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div>
+                        <p>Out of Stock</p>
+                        <h2 id="outOfStockProducts">0</h2>
+                    </div>
+                </div>
+
+            </section>
+
+            
+
+<section class="products-section" id="products">
+
+    <!-- SECTION HEADER -->
+    <div class="section-header">
+        <div>
+            <h2>Product Management</h2>
+            <p>Manage products and availability for each branch.</p>
+        </div>
+
+        <button type="button" class="add-product-btn" id="addProductButton">
+            <i class="fas fa-plus"></i> Add Product
+        </button>
+    </div>
+
+
+    <!-- ADD PRODUCT FORM -->
+    <div class="product-form-container" id="productFormContainer" hidden>
+
+        <div class="form-header">
+            <h3 id="productFormTitle">Add New Product</h3>
+
+            <button type="button" id="closeProductForm" class="close-form-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <form id="productForm">
+
+            <!-- PRODUCT NAME -->
+            <div class="form-group">
+                <label for="productName">Product Name *</label>
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="Enter product name"
+                    required
+                >
+            </div>
+
+            <!-- CATEGORY -->
+            <div class="form-group">
+                <label for="productCategory">Category *</label>
+
+                <select id="productCategory" required>
+                    <option value="">Select Category</option>
+                    <option value="Medical Devices">Medical Devices</option>
+                    <option value="Medical Equipment">Medical Equipment</option>
+                    <option value="Medical and Hospital Supplies">Medical and Hospital Supplies</option>
+                    <option value="Personal Protective Equipment">Personal Protective Equipment</option>
+                </select>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="form-group">
+                <label for="productDescription">
+                    Specifications / Description
+                </label>
+
+                <textarea
+                    id="productDescription"
+                    rows="5"
+                    placeholder="Enter product specifications and description"
+                ></textarea>
+            </div>
+
+            <!-- PRODUCT IMAGE -->
+            <div class="form-group">
+                <label for="productImage">Product Image</label>
+
+                <input
+                    type="file"
+                    id="productImage"
+                    accept="image/png,image/jpeg,image/webp"
+                >
+
+                <small>Accepted formats: JPG, PNG, WEBP. Maximum size: 5MB.</small>
+
+                <div id="imagePreviewContainer" hidden>
+                    <img id="imagePreview" alt="Product image preview">
+                </div>
+            </div>
+
+
+            <!-- BRANCH AVAILABILITY -->
+            <div class="branch-availability-form">
+
+                <h3>Branch Availability</h3>
+                <p>Set the initial availability of this product for each branch.</p>
+
+                <div class="form-group">
+                    <label for="mainBranchStatus">Main Branch *</label>
+
+                    <select id="mainBranchStatus" required>
+                        <option value="available">Available</option>
+                        <option value="out_of_stock">Out of Stock</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="comingSoonBranchStatus">Coming Soon *</label>
+
+                    <select id="comingSoonBranchStatus" required>
+                        <option value="out_of_stock">Out of Stock</option>
+                        <option value="available">Available</option>
+                        <option value="coming_soon">Coming Soon</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <!-- FORM ACTIONS -->
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    id="cancelProductButton"
+                    class="cancel-btn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    id="saveProductButton"
+                    class="save-btn"
+                >
+                    <i class="fas fa-save"></i> Save Product
+                </button>
+
+            </div>
+
+            <p id="productFormMessage" role="status"></p>
+
+        </form>
+    </div>
+
+
+    <!-- SEARCH AND FILTER -->
+    <div class="product-toolbar">
+
+        <input
+            type="search"
+            id="productSearch"
+            placeholder="Search products..."
+        >
+
+        <select id="statusFilter">
+            <option value="all">All Products</option>
+            <option value="available">Available in at least one branch</option>
+            <option value="out">Out of Stock in all branches</option>
+        </select>
+
+    </div>
+
+
+    <!-- PRODUCT TABLE -->
+    <div class="table-container">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Main Branch</th>
+                    <th>Coming Soon</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="productTableBody"></tbody>
+        </table>
+
+    </div>
+
+    <p id="emptyMessage" hidden>No products found.</p>
+
+</section>
+
+
+
+            <footer class="dashboard-footer">
+                &copy; <span id="currentYear"></span>
+                Blessing Pharma and Medical Supplies Trading.
+                All rights reserved.
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

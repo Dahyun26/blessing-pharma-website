@@ -20,7 +20,7 @@
 <header class="site-header">
     <div class="container nav">
 
-    <a class="brand" href="#home">
+    <a class="brand" href="index.html">
     <img
         src="images/logo.png"
         alt="Blessing Pharma Logo"
@@ -41,9 +41,10 @@
 
         <nav class="navlinks" id="navlinks">
     <a href="index.html">Home</a>
-    <a href="about.html" class="active">About Us</a>
-    <a href="#products">Products</a>
-    <a href="#services">Services</a>
+    <a class="active" href="about.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="services.html">Services</a>
+    <a href="feedback.html">Feedback</a>
     <a href="contact.html">Contact Us</a>
 </nav>
 
@@ -60,9 +61,6 @@
 
     </div>
 </header>
-
-<main>
-
 
 <main>
 
@@ -96,7 +94,7 @@
             </div>
 
             <div class="hero-image">
-                <img src="images/logo.png" alt="Blessing Pharma healthcare image">
+                <img src="images/group.jpg" alt="Blessing Pharma healthcare image">
                 <div class="image-label">
                     <i class="fa-solid fa-shield-heart"></i>
                     <span>Quality Products, Care You Can Trust</span>
@@ -203,7 +201,7 @@
             class="org-person-photo"
         >
 
-        <h3>John Mark Paña</h3>
+        <h3>John Mark Pania</h3>
         <p>Chief Executive Officer</p>
     </article>
 </div>
@@ -214,48 +212,55 @@
 
                     <article class="org-card department-card">
     <img
-        src="images/inventory.png"
+        src="images/assistant.jfif"
         alt="Inventory and Warehouse Representative"
         class="org-person-photo"
     >
 
     <h3>Gomer Manombaga</h3>
-    <p>Operations Assistant</p>
+    <p>Store Operation Assistant</p>
+</article>
+
+                     <article class="org-card department-card">
+    <img
+        src="images/sales.jpg"
+        alt="Sales Officer"
+        class="org-person-photo"
+    >
+
+    <h3>Errol Majaba</h3>
+    <p>Sales Officer</p>
 </article>
 
                     <article class="org-card department-card">
-                        <div class="department-icon">
-                            <i class="fa-solid fa-handshake"></i>
-                        </div>
-                        <h3>Sales &amp; Customer Service</h3>
-                        <p>Customer inquiries and order assistance</p>
-                    </article>
-
-                    <article class="org-card department-card">
     <img
-        src="images/accounting.png"
+        src="images/accounting.jfif"
         alt="Financial and Accounting"
         class="org-person-photo"
     >
 
     <h3>Jeanly Rose Libo-On</h3>
-    <p>Secretary</p>
+    <p>Accounting Staff</p>
 </article>
 
                     <article class="org-card department-card">
-                        <div class="department-icon">
-                            <i class="fa-solid fa-users-gear"></i>
-                        </div>
-                        <h3>Human Resources (HR)</h3>
-                        <p>Staff coordination and employee records</p>
+                        <img
+        src="images/HR.jfif"
+        alt="Human Resources Officer"
+        class="org-person-photo"
+    >
+                        <h3>Joshua King Paña</h3>
+                        <p>Human Resource Staff</p>
                     </article>
 
                     <article class="org-card department-card">
-                        <div class="department-icon">
-                            <i class="fa-solid fa-bullhorn"></i>
-                        </div>
-                        <h3>Marketing</h3>
-                        <p>Promotional activities and brand awareness</p>
+                        <img
+        src="images/marketing.jfif"
+        alt="Marketing Officer"
+        class="org-person-photo"
+    >
+                        <h3>Louisse Francheska Mercado</h3>
+                        <p>Marketing Officer</p>
                     </article>
 
                 </div>
@@ -367,12 +372,48 @@
 </main>
 
 <script>
+    // MOBILE NAVIGATION
     const menuToggle = document.getElementById("menuToggle");
     const navlinks = document.getElementById("navlinks");
 
     menuToggle.addEventListener("click", function () {
         const isOpen = navlinks.classList.toggle("show");
         menuToggle.setAttribute("aria-expanded", isOpen);
+    });
+
+
+    // ABOUT PAGE SCROLL REVEAL
+    const revealSections = document.querySelectorAll(
+        ".story, .mission-section, .organization, .values-section, .about-cta"
+    );
+
+    const revealCards = document.querySelectorAll(
+        ".purpose-card, .org-card, .value-card"
+    );
+
+    revealSections.forEach(section => {
+        section.classList.add("about-reveal");
+    });
+
+    revealCards.forEach(card => {
+        card.classList.add("about-card-reveal");
+    });
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12
+    });
+
+    document.querySelectorAll(
+        ".about-reveal, .about-card-reveal"
+    ).forEach(element => {
+        revealObserver.observe(element);
     });
 </script>
 

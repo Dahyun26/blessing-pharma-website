@@ -714,7 +714,7 @@ img {
 .department-card {
     min-width: 0;
     max-width: none;
-    height: 100%;
+    height:100%;
     padding: 24px 10px;
     border-top: 4px solid var(--green);
     background: #FFFFFF;
@@ -1288,6 +1288,64 @@ img {
 
     .footer-brand {
         grid-column: auto;
+    }
+}
+
+/* =========================
+   ABOUT PAGE ANIMATIONS
+========================= */
+
+@media (prefers-reduced-motion: no-preference) {
+
+    /* HERO: SLIDE FROM RIGHT */
+    .about-hero .hero-copy,
+    .about-hero .hero-image {
+        opacity: 0;
+        animation: aboutHeroFromRight 1s ease forwards;
+    }
+
+    .about-hero .hero-image {
+        animation-delay: 0.2s;
+    }
+
+    @keyframes aboutHeroFromRight {
+        from {
+            opacity: 0;
+            transform: translateX(70px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* OTHER SECTIONS: SLIDE FROM LEFT */
+    .about-reveal {
+        opacity: 0;
+        transform: translateX(-60px);
+        transition:
+            opacity 0.8s ease,
+            transform 0.8s ease;
+    }
+
+    .about-reveal.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* CARDS: SUBTLE UPWARD ENTRANCE */
+    .about-card-reveal {
+        opacity: 0;
+        transform: translateY(35px);
+        transition:
+            opacity 0.7s ease,
+            transform 0.7s ease;
+    }
+
+    .about-card-reveal.show {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

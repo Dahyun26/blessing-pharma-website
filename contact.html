@@ -45,9 +45,10 @@
     <nav class="navlinks" id="navlinks">
     <a href="index.html">Home</a>
     <a href="about.html">About Us</a>
-    <a href="#products">Products</a>
-    <a href="#services">Services</a>
-    <a href="contact.html" class="active">Contact Us</a>
+    <a href="products.html">Products</a>
+    <a href="services.html">Services</a>
+    <a href="feedback.html">Feedback</a>
+    <a class="active" href="contact.html">Contact Us</a>
 </nav>
 
         <form class="search" id="searchForm">
@@ -185,88 +186,116 @@
 
                     <form id="contactForm">
 
-                        <div class="form-row">
+    <div class="form-row">
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                placeholder="Enter your full name"
+                required
+            >
+        </div>
 
-                            <div class="form-group">
-                                <label for="fullName">Full Name</label>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                required
+            >
+        </div>
+    </div>
 
-                                <input
-                                    type="text"
-                                    id="fullName"
-                                    name="fullName"
-                                    placeholder="Enter your full name"
-                                    required>
-                            </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Enter your phone number"
+            >
+        </div>
 
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
+        <div class="form-group">
+            <label for="subject">Inquiry Type</label>
+            <select id="subject" name="subject" required>
+                <option value="" disabled selected>Select an inquiry</option>
+                <option value="Inquiry">Inquiry Items</option>
+                <option value="Purchasing">Purchasing Items</option>
+                <option value="Quotation">Quotation</option>
+                <option value="Apply">Application</option>
+                <option value="Partnership">Partnership</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+    </div>
 
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    placeholder="you@example.com"
-                                    required>
-                            </div>
+    <!-- APPLICATION FIELDS: Shown only when Application is selected -->
+    <div id="applicationFields" hidden>
 
-                        </div>
+        <div class="form-group">
+            <label for="position">Position Applying For</label>
+            <input
+                type="text"
+                id="position"
+                name="position"
+                placeholder="Enter the position you are applying for"
+            >
+        </div>
 
-                        
-<div class="form-row">
+        <div class="form-group">
+            <label for="resume">Upload Resume / CV</label>
+            <input
+                type="file"
+                id="resume"
+                name="resume"
+                accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            >
+            <small>Accepted formats: PDF and DOCX. Maximum file size: 5 MB.</small>
+        </div>
 
-    <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input
-            type="tel"
-            id="phone"
-            name="phone"
-            placeholder="Enter your phone number">
+        <div class="form-group application-consent">
+            <label>
+                <input
+                    type="checkbox"
+                    id="applicationConsent"
+                    name="applicationConsent"
+                >
+                I consent to the collection and processing of my application
+                details and uploaded resume for recruitment purposes.
+            </label>
+        </div>
+
     </div>
 
     <div class="form-group">
-        <label for="subject">Inquiry Type</label>
-
-        
-<select id="subject" name="subject" required>
-    <option value="" disabled selected>Select an inquiry</option>
-    <option value="Inquiry">Inquiry Items</option>
-    <option value="Purchasing">Purchasing Items</option>
-    <option value="Quotation">Quotation</option>
-    <option value="Apply">Application</option>
-    <option value="Partnership">Partnership</option>
-    <option value="Other">Other</option>
-</select>
-
+        <label for="message">Your Message</label>
+        <textarea
+            id="message"
+            name="message"
+            rows="5"
+            placeholder="Tell us how we can help..."
+            required
+        ></textarea>
     </div>
 
-</div>
+    <button type="submit" class="submit-button">
+        Send Message
+    </button>
 
+    <p class="form-disclaimer">
+        Please do not include sensitive personal or medical information.
+    </p>
 
-                        <div class="form-group">
-                            <label for="message">Your Message</label>
+    <p id="formStatus" class="form-status" aria-live="polite"></p>
 
-                            <textarea
-                                id="message"
-                                name="message"
-                                rows="5"
-                                placeholder="Tell us how we can help..."
-                                required></textarea>
-                        </div>
-
-                        <button type="submit" class="submit-button">
-                            Send Message
-                            <i class="fa-solid fa-paper-plane"></i>
-                        </button>
-
-                        <p class="form-disclaimer">
-                            <i class="fa-solid fa-lock"></i>
-                            Please do not include sensitive personal or medical information.
-                        </p>
-
-                        <p id="formStatus" class="form-status" aria-live="polite"></p>
-                        
-
-                    </form>
+</form>
+   
 
                 </section>
 
@@ -322,32 +351,8 @@
     </div>
 </section>
 
-    <!-- FOOTER -->
-    <footer class="contact-footer">
-        <div class="contact-container footer-content">
-
-            <a href="index.html" class="brand footer-brand">
-                <img src="images/logo footer.png"
-                     alt="Blessing Pharma Logo"
-                     class="logo">
-            </a>
-
-            <p>
-                Quality pharmaceutical products and medical supplies
-                for healthier communities.
-            </p>
-
-            <span>
-                © 2026 Blessing Pharma &amp; Medical Supplies.
-                All rights reserved.
-            </span>
-
-        </div>
-    </footer>
-
 
     <script src="contact.js"></script>
 
 </body>
 </html>
-```
