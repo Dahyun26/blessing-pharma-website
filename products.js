@@ -475,7 +475,7 @@ renderProducts();
         quoteButton.disabled = !isAvailable;
 
         quoteButton.textContent = isAvailable
-          ? "Request a Quote"
+          ? "Available Now"
           : getStatusLabel(status);
 
         quoteButton.setAttribute(
@@ -859,7 +859,7 @@ renderProducts();
 
     modalQuote.disabled = !isAvailable;
     modalQuote.textContent = isAvailable
-      ? "Request a Quote"
+      ? "Available Now"
       : "Not Available";
 
     modal.hidden = false;
