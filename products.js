@@ -729,54 +729,54 @@ renderProducts();
 
       card.hidden = !isVisible;
 
-      if (isVisible) {
-        visibleCount++;
-        productGrid.appendChild(card);
-      }
-    });
+        if (isVisible) {
+          visibleCount++;
+          productGrid.appendChild(card);
+        }
+      });
 
-    if (productCount) {
-      productCount.textContent = visibleCount;
+      if (productCount) {
+        productCount.textContent = visibleCount;
+      }
+
+      if (noResults) {
+        noResults.hidden = visibleCount !== 0;
+      }
+
+      if (clearSearch && searchInput) {
+        clearSearch.hidden = searchInput.value.length === 0;
+      }
+
+      productGrid.hidden = false;
     }
 
-    if (noResults) {
-      noResults.hidden = visibleCount !== 0;
+    if (searchInput) {
+      searchInput.addEventListener("input", renderProducts);
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener("change", renderProducts);
     }
 
     if (clearSearch && searchInput) {
-      clearSearch.hidden = searchInput.value.length === 0;
+      clearSearch.addEventListener("click", () => {
+        searchInput.value = "";
+        renderProducts();
+        searchInput.focus();
+      });
     }
 
-    productGrid.hidden = false;
-  }
+    if (filters) {
+      $$(".filter-btn", filters).forEach((button) => {
+        button.addEventListener("click", () => {
+          activeCategory = button.dataset.category || "all";
 
-  if (searchInput) {
-    searchInput.addEventListener("input", renderProducts);
-  }
+          $$(".filter-btn", filters).forEach((filter) => {
+            const isActive = filter === button;
 
-  if (sortSelect) {
-    sortSelect.addEventListener("change", renderProducts);
-  }
-
-  if (clearSearch && searchInput) {
-    clearSearch.addEventListener("click", () => {
-      searchInput.value = "";
-      renderProducts();
-      searchInput.focus();
-    });
-  }
-
-  if (filters) {
-    $$(".filter-btn", filters).forEach((button) => {
-      button.addEventListener("click", () => {
-        activeCategory = button.dataset.category || "all";
-
-        $$(".filter-btn", filters).forEach((filter) => {
-          const isActive = filter === button;
-
-          filter.classList.toggle("active", isActive);
-          filter.setAttribute("aria-pressed", String(isActive));
-        });
+            filter.classList.toggle("active", isActive);
+            filter.setAttribute("aria-pressed", String(isActive));
+          });
 
         renderProducts();
       });
