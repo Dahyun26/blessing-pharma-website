@@ -49,14 +49,17 @@
 </nav>
 
         <form class="search" id="searchForm">
-            <span>⌕</span>
-            <input
-                id="searchInput"
-                type="search"
-                placeholder="Search for products or services..."
-                aria-label="Search products">
-            <button type="submit" aria-label="Search">⌕</button>
-        </form>
+    <span>⌕</span>
+
+    <input
+        id="searchInput"
+        type="search"
+        placeholder="Search for products or services..."
+        aria-label="Search the website"
+        autocomplete="off">
+
+    <button type="submit" aria-label="Search">⌕</button>
+</form>
 
 
     </div>
@@ -132,7 +135,7 @@
     </section>
 
     <!-- MISSION AND VISION -->
-    <section class="section mission-section">
+    <section id="mission" section class="section mission-section">
         <div class="container">
             <div class="center-heading">
                
@@ -156,7 +159,7 @@
                     </p>
                 </article>
 
-                <article class="purpose-card vision-card">
+                <section id="vision" article class="purpose-card vision-card">
                     <div class="purpose-icon">
                         <i class="fa-solid fa-eye"></i>
                     </div>
@@ -178,7 +181,7 @@
     </section>
 
     <!-- ORGANIZATIONAL CHART -->
-    <section class="section organization" id="organization">
+    <section class="section organization" id="organization-chart">
         <div class="container">
             <div class="center-heading">
                 <span class="eyebrow">OUR TEAM STRUCTURE</span>
@@ -416,6 +419,7 @@
         revealObserver.observe(element);
     });
 </script>
+<script src="search.js"></script>
 
 </body>
 </html>

@@ -216,6 +216,7 @@ footer .brand-text small {
     border-radius: 5px;
 }
 
+
 .search {
     display: flex;
     align-items: center;
@@ -226,22 +227,47 @@ footer .brand-text small {
     background: #f8faf9;
     min-width: 200px;
     color: var(--muted);
+    flex-shrink: 0;
+    position: relative;
+    transform: none;
 }
 
 .search input {
     width: 100%;
     min-width: 0;
+    height: 20px;
+    padding: 0;
+    margin: 0;
     border: 0;
-    outline: 0;
+    outline: none;
     background: transparent;
     font-size: 12px;
+    line-height: 20px;
+    box-shadow: none;
+    transform: none;
+    appearance: none;
+}
+
+.search input:focus {
+    outline: none;
+    box-shadow: none;
+    transform: none;
 }
 
 .search button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0;
     border: 0;
     background: transparent;
     color: var(--green);
+    cursor: pointer;
+    transform: none;
 }
+
 
 .bag {
     border: 0;

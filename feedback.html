@@ -49,14 +49,17 @@
 </nav>
 
         <form class="search" id="searchForm">
-            <span>⌕</span>
-            <input
-                id="searchInput"
-                type="search"
-                placeholder="Search for products or services..."
-                aria-label="Search products">
-            <button type="submit" aria-label="Search">⌕</button>
-        </form>
+    <span>⌕</span>
+
+    <input
+        id="searchInput"
+        type="search"
+        placeholder="Search for products or services..."
+        aria-label="Search the website"
+        autocomplete="off">
+
+    <button type="submit" aria-label="Search">⌕</button>
+</form>
 
 
     </div>
@@ -69,7 +72,7 @@
              FEEDBACK HERO
         ====================================== -->
 
-        <section class="feedback-hero">
+        <section class="feedback-hero" id="feedback-home">
 
             <div class="container">
 
@@ -125,7 +128,7 @@
              INTRODUCTION
         ====================================== -->
 
-        <section class="feedback-intro">
+        <section class="feedback-intro" id="customer-experiences">
 
             <div class="container">
 
@@ -556,7 +559,7 @@
              GOOGLE FEEDBACK FORM CTA
         ====================================== -->
 
-        <section class="feedback-cta">
+        <section class="feedback-cta" id="submit-feedback">
 
             <div class="container">
 
@@ -603,7 +606,7 @@
              CLOSING MESSAGE
         ====================================== -->
 
-        <section class="feedback-closing">
+        <section class="feedback-closing" id="thank-you">
 
             <div class="container">
 
@@ -671,6 +674,7 @@
 
     <!-- Feedback JavaScript -->
     <script src="feedback.js"></script>
+    <script src="search.js"></script>
 
 </body>
 </html>

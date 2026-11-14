@@ -325,6 +325,34 @@
       }
   }
 
+  /* Stabilize global search while typing */
+.site-header .search {
+    position: relative;
+    transform: none !important;
+    scroll-margin: 0 !important;
+}
+
+.site-header .search:focus-within {
+    transform: none !important;
+    outline: none;
+}
+
+.site-header .search input {
+    position: static;
+    transform: none !important;
+    height: 20px;
+    min-height: 20px;
+    line-height: 20px;
+    outline: none;
+    box-shadow: none;
+}
+
+.site-header .search input:focus {
+    transform: none !important;
+    outline: none;
+    box-shadow: none;
+}
+
   /* =========================
     SMALL MOBILE SCREENS
   ========================= */

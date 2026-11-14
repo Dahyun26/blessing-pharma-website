@@ -52,22 +52,24 @@
 </nav>
 
         <form class="search" id="searchForm">
-            <span>⌕</span>
-            <input
-                id="searchInput"
-                type="search"
-                placeholder="Search for products or services..."
-                aria-label="Search products">
-            <button type="submit" aria-label="Search">⌕</button>
-        </form>
+    <span>⌕</span>
 
+    <input
+        id="searchInput"
+        type="search"
+        placeholder="Search for products or services..."
+        aria-label="Search the website"
+        autocomplete="off">
+
+    <button type="submit" aria-label="Search">⌕</button>
+</form>
 
     </div>
 </header>
 
 
     <!-- CONTACT HERO -->
-    <section class="contact-hero">
+    <section class="contact-hero" id="contact-home">
         <div class="contact-container">
 
             <div class="hero-badge">
@@ -101,7 +103,7 @@
             <div class="contact-layout">
 
                 <!-- CONTACT INFORMATION -->
-                <section class="contact-info">
+                <section class="contact-info" id="contact-information">
 
                     <span class="section-label">CONTACT INFORMATION</span>
 
@@ -316,7 +318,7 @@
         </p>
     </div>
 
-    <div class="map-card">
+    <div class="map-card" id="google-maps">
         <iframe
             src="https://maps.google.com/maps?q=Blessing%20Pharma%20and%20Medical%20Supplies%20Trading%2C%20P.%20Burgos%20St%2C%20Batangas%20City%2C%20Philippines&output=embed"
             title="Blessing Pharma location in Batangas City"
@@ -353,6 +355,7 @@
 
 
     <script src="contact.js"></script>
+    <script src="search.js"></script>
 
 </body>
 </html>
