@@ -52,14 +52,19 @@
 </nav>
 
         <form class="search" id="searchForm">
-            <span>⌕</span>
-            <input
-                id="searchInput"
-                type="search"
-                placeholder="Search for products or services..."
-                aria-label="Search products">
-            <button type="submit" aria-label="Search">⌕</button>
-        </form>
+    <span>⌕</span>
+
+    <input
+        id="searchInput"
+        type="search"
+        placeholder="Search for products or services..."
+        aria-label="Search the website"
+        autocomplete="off">
+
+    <button type="submit" aria-label="Search">⌕</button>
+</form>
+
+<div id="searchResults" class="search-results"></div>
 
 
     </div>
@@ -354,5 +359,6 @@
 
 
 <script src="script.js"></script>
+<script src="search.js"></script>
 </body>
 </html>
