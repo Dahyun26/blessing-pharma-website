@@ -41,11 +41,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Common searches should always go to their intended destination.
     const priorityDestinations = [
         {
-            keywords: ["organizational chart", "organization chart", "org chart", "our team", "management team"],
-            page: "about.html",
-            target: "organizational-chart",
-            fallback: "organization"
-        },
+    keywords: [
+        "organizational chart",
+        "organization chart",
+        "org chart",
+        "our team",
+        "management team",
+        "organizational structure",
+        "organization structure"
+    ],
+    page: "about.html",
+    target: "organization-chart"
+},
         {
             keywords: ["mission"],
             page: "about.html",
@@ -463,7 +470,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const target = findTargetElement(
                 targetId,
-                targetId === "organizational-chart" ? "organization" :
+                targetId === "organization-chart" ? "organization" :
                 targetId === "google-maps" ? "our-location" :
                 null
             );

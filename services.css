@@ -386,6 +386,23 @@ button {
 }
 
 
+.blesscard-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.blesscard-image {
+    display: block;
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 18px;
+}
+
+
 /* BUTTONS */
 
 .btn {
