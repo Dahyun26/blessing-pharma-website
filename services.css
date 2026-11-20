@@ -773,20 +773,30 @@ button {
     color: var(--yellow);
 }
 
+
+.blesscard-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+}
+
 .points-note {
     display: flex;
     align-items: center;
     gap: 15px;
+    width: min(100%, 550px);
+    padding: 15px 22px;
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
     border-radius: 12px;
-    padding: 15px 22px;
-    width: min(100%, 450px);
 }
 
 .points-note > i {
     color: var(--yellow);
     font-size: 1.8rem;
+    flex-shrink: 0;
 }
 
 .points-note strong,
@@ -794,10 +804,16 @@ button {
     display: block;
 }
 
+.points-note strong {
+    color: white;
+    font-size: 1rem;
+}
+
 .points-note span {
     font-size: 0.8rem;
     color: #D8E7DF;
 }
+
 
 /* DELIVERY SECTION */
 
