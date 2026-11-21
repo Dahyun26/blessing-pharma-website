@@ -72,8 +72,9 @@ let selectedQuotationItems = [];
   // --------------------------------------------------
 
   let products = [];
-  let branches = [];
-  let branchAvailability = [];
+let branches = [];
+let branchAvailability = [];
+let categories = [];
 
   let activeBranch = branchSelector
     ? branchSelector.value
@@ -157,35 +158,12 @@ let selectedQuotationItems = [];
   }
 
   function categorySlug(category) {
-  const value = String(category || "")
-    .toLowerCase()
-    .trim();
-
-  if (
-    value.includes("medical equipment") ||
-    value.includes("diagnostic")
-  ) {
-    return "medical-equipment";
-  }
-
-  if (
-    value.includes("pharma") ||
-    value.includes("medicine")
-  ) {
-    return "pharmaceuticals";
-  }
-
-  if (
-    value === "ppe" ||
-    value.includes("personal protective equipment") ||
-    value.includes("personal care")
-  ) {
-    return "personal-care";
-  }
-
-  return "medical-supplies";
+    return String(category || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
 }
-
   // --------------------------------------------------
   // BRANCH AVAILABILITY
   // --------------------------------------------------
@@ -224,81 +202,95 @@ let selectedQuotationItems = [];
   // LOAD DATA FROM SUPABASE
   // --------------------------------------------------
 
-  async function loadCatalog() {
+  
+async function loadCatalog() {
     showCatalogMessage("Loading products...");
 
     try {
-      const [
-        productsResult,
-        branchesResult,
-        availabilityResult
-      ] = await Promise.all([
-        db
-          .from("products")
-          .select(`
-            id,
-            product_name,
-            category,
-            description,
-            image_url,
-            created_at
-          `)
-          .eq("is_active", true)
-          .order("created_at", { ascending: false }),
+        const [
+            productsResult,
+            branchesResult,
+            availabilityResult,
+            categoriesResult
+        ] = await Promise.all([
+            db
+                .from("products")
+                .select(`
+                    id,
+                    product_name,
+                    category,
+                    description,
+                    image_url,
+                    created_at
+                `)
+                .eq("is_active", true)
+                .order("created_at", { ascending: false }),
 
-        db
-          .from("branches")
-          .select("id, branch_name, branch_code")
-          .eq("is_active", true),
+            db
+                .from("branches")
+                .select("id, branch_name, branch_code")
+                .eq("is_active", true),
 
-        db
-          .from("branch_product_availability")
-          .select(`
-            id,
-            product_id,
-            branch_id,
-            stock_quantity,
-            low_stock_threshold,
-            availability_status
-          `)
-      ]);
+            db
+                .from("branch_product_availability")
+                .select(`
+                    id,
+                    product_id,
+                    branch_id,
+                    stock_quantity,
+                    low_stock_threshold,
+                    availability_status
+                `),
 
-      if (productsResult.error) throw productsResult.error;
-      if (branchesResult.error) throw branchesResult.error;
-      if (availabilityResult.error) throw availabilityResult.error;
+            db
+                .from("categories")
+                .select("id, name, is_active")
+                .eq("is_active", true)
+                .order("name", { ascending: true })
+        ]);
 
-      products = productsResult.data || [];
-      branches = branchesResult.data || [];
-      branchAvailability = availabilityResult.data || [];
+        if (productsResult.error) throw productsResult.error;
+        if (branchesResult.error) throw branchesResult.error;
+        if (availabilityResult.error) throw availabilityResult.error;
+        if (categoriesResult.error) throw categoriesResult.error;
 
-      if (!products.length) {
-        showCatalogMessage("No products are currently available.");
+        // Store Supabase data
+        products = productsResult.data || [];
+        branches = branchesResult.data || [];
+        branchAvailability = availabilityResult.data || [];
+        categories = categoriesResult.data || [];
 
-        if (productCount) {
-          productCount.textContent = "0";
+        console.log("Loaded categories:", categories);
+
+        // Render branch and category filters
+        populateBranchSelector();
+        renderCategoryFilters();
+
+        if (!products.length) {
+            showCatalogMessage("No products are currently available.");
+
+            if (productCount) {
+                productCount.textContent = "0";
+            }
+
+            return;
         }
 
-        return;
-      }
-
-      populateBranchSelector();
-renderProductCards();
-updateBranchMessage();
-
-// Read the category selected from the Home page URL
-applyCategoryFromURL();
-
-// Display products using the selected category
-renderProducts();
+        // Render products
+        renderProductCards();
+        updateBranchMessage();
+        applyCategoryFromURL();
+        renderProducts();
 
     } catch (error) {
-      console.error("Catalog loading error:", error);
+        console.error("Catalog loading error:", error);
 
-      showCatalogMessage(
-        "We couldn't load the product catalog. Please try again later."
-      );
+        showCatalogMessage(
+            "We couldn't load the product catalog. Please try again later."
+        );
     }
-  }
+}
+
 
   // --------------------------------------------------
   // BRANCH SELECTOR
@@ -766,22 +758,26 @@ renderProducts();
       });
     }
 
-    if (filters) {
-      $$(".filter-btn", filters).forEach((button) => {
-        button.addEventListener("click", () => {
-          activeCategory = button.dataset.category || "all";
+    
+if (filters) {
+    filters.addEventListener("click", (event) => {
+        const button = event.target.closest(".filter-btn");
 
-          $$(".filter-btn", filters).forEach((filter) => {
+        if (!button) return;
+
+        activeCategory = button.dataset.category || "all";
+
+        $$(".filter-btn", filters).forEach((filter) => {
             const isActive = filter === button;
 
             filter.classList.toggle("active", isActive);
             filter.setAttribute("aria-pressed", String(isActive));
-          });
+        });
 
         renderProducts();
-      });
     });
-  }
+}
+
 
   if (resetFilters) {
     resetFilters.addEventListener("click", () => {
@@ -953,6 +949,31 @@ renderProducts();
   });
 }
 
+function renderCategoryFilters() {
+    const categoryFilters = document.getElementById("categoryFilters");
+
+    if (!categoryFilters) return;
+
+    categoryFilters.innerHTML = `
+        <button class="filter-btn active" data-category="all">
+            All Products
+        </button>
+    `;
+
+    categories.forEach(category => {
+        const button = document.createElement("button");
+
+        button.className = "filter-btn";
+        button.dataset.category = categorySlug(category.name);
+
+        button.textContent = category.name;
+
+        categoryFilters.appendChild(button);
+    });
+}
+
+
+
   // --------------------------------------------------
   // MOBILE NAVIGATION
   // --------------------------------------------------
@@ -985,31 +1006,32 @@ renderProducts();
 // CATEGORY FROM HOME PAGE URL
 // --------------------------------------------------
 
+
 function applyCategoryFromURL() {
     const params = new URLSearchParams(window.location.search);
     const requestedCategory = params.get("category");
 
-    const validCategories = [
-        "all",
-        "medical-supplies",
-        "medical-equipment",
-        "personal-care",
-        "pharmaceuticals"
-    ];
+    const validCategories = categories.map(category =>
+        categorySlug(category.name)
+    );
 
-    activeCategory = validCategories.includes(requestedCategory)
-        ? requestedCategory
-        : "all";
+    activeCategory =
+        requestedCategory === "all" ||
+        validCategories.includes(requestedCategory)
+            ? requestedCategory
+            : "all";
 
     if (filters) {
         $$(".filter-btn", filters).forEach((button) => {
-            const isActive = button.dataset.category === activeCategory;
+            const isActive =
+                button.dataset.category === activeCategory;
 
             button.classList.toggle("active", isActive);
             button.setAttribute("aria-pressed", String(isActive));
         });
     }
 }
+
 
   // --------------------------------------------------
   // BACK TO TOP

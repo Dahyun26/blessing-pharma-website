@@ -88,6 +88,401 @@ async function initializeDashboard() {
     const sidebar = $("sidebar");
 
 
+let categories = [];
+let editingCategoryId = null;
+
+const categoryTableBody = $("categoryTableBody");
+const categoryEmptyMessage = $("categoryEmptyMessage");
+
+const categoryForm = $("categoryForm");
+const categoryFormContainer = $("categoryFormContainer");
+const categoryName = $("categoryName");
+const categoryFormMessage = $("categoryFormMessage");
+
+const addCategoryButton = $("addCategoryButton");
+const cancelCategoryButton = $("cancelCategoryButton");
+const saveCategoryButton = $("saveCategoryButton");
+
+
+
+/* =========================================
+   CATEGORY MANAGEMENT
+========================================= */
+
+async function loadCategories() {
+
+    const { data, error } = await supabaseClient
+        .from("categories")
+        .select("*")
+        .order("name", { ascending: true });
+
+    if (error) throw error;
+
+    categories = data || [];
+
+    renderCategories();
+    populateCategoryDropdown();
+}
+
+
+function renderCategories() {
+
+    categoryTableBody.innerHTML = "";
+
+    if (categories.length === 0) {
+        categoryEmptyMessage.hidden = false;
+        return;
+    }
+
+    categoryEmptyMessage.hidden = true;
+
+    categories.forEach(category => {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${escapeHTML(category.name)}</td>
+
+            <td>
+                <span class="category-status">
+                    ${category.is_active ? "Active" : "Inactive"}
+                </span>
+            </td>
+
+            <td>
+                <div class="category-actions">
+
+                    <button type="button"
+                        class="edit-category-btn"
+                        data-id="${category.id}">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+
+                    <button type="button"
+                        class="delete-category-btn"
+                        data-id="${category.id}">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+
+                </div>
+            </td>
+        `;
+
+        categoryTableBody.appendChild(row);
+    });
+}
+
+/* =========================================
+   MANAGEMENT PAGE NAVIGATION
+========================================= */
+
+const navigationLinks = document.querySelectorAll(
+    ".sidebar-nav a[data-view]"
+);
+
+const managementSections = {
+    products: document.getElementById("products"),
+    categories: document.getElementById("categories")
+};
+
+function showManagementSection(view) {
+
+    // Hide all management sections
+    Object.values(managementSections).forEach(section => {
+        if (section) {
+            section.hidden = true;
+        }
+    });
+
+    // Display selected section
+    if (managementSections[view]) {
+        managementSections[view].hidden = false;
+    }
+
+    // Update active sidebar link
+    navigationLinks.forEach(link => {
+        link.classList.toggle(
+            "active",
+            link.dataset.view === view
+        );
+    });
+
+    // Close mobile sidebar after selection
+    sidebar.classList.remove("active");
+}
+
+navigationLinks.forEach(link => {
+
+    link.addEventListener("click", event => {
+
+        event.preventDefault();
+
+        const selectedView = link.dataset.view;
+
+        showManagementSection(selectedView);
+
+    });
+
+});
+
+// Default page
+showManagementSection("products");
+
+
+/* POPULATE PRODUCT CATEGORY DROPDOWN */
+
+function populateCategoryDropdown() {
+
+    const previousValue = productCategory.value;
+
+    productCategory.innerHTML = `
+        <option value="">Select Category</option>
+    `;
+
+    categories
+        .filter(category => category.is_active)
+        .forEach(category => {
+
+            const option = document.createElement("option");
+
+            option.value = category.name;
+            option.textContent = category.name;
+
+            productCategory.appendChild(option);
+        });
+
+    if (
+        previousValue &&
+        !Array.from(productCategory.options).some(
+            option => option.value === previousValue
+        )
+    ) {
+        const option = document.createElement("option");
+        option.value = previousValue;
+        option.textContent = previousValue;
+        productCategory.appendChild(option);
+    }
+
+    productCategory.value = previousValue;
+}
+
+
+/* OPEN CATEGORY FORM */
+
+function openCategoryForm(category = null) {
+
+    editingCategoryId = category ? category.id : null;
+
+    categoryForm.reset();
+
+    categoryName.value = category ? category.name : "";
+
+    $("categoryFormTitle").textContent = category
+        ? "Edit Category"
+        : "Add New Category";
+
+    saveCategoryButton.innerHTML = category
+        ? '<i class="fas fa-save"></i> Update Category'
+        : '<i class="fas fa-save"></i> Save Category';
+
+    categoryFormMessage.textContent = "";
+
+    categoryFormContainer.hidden = false;
+
+    categoryFormContainer.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+
+/* CLOSE CATEGORY FORM */
+
+function closeCategoryForm() {
+
+    categoryForm.reset();
+
+    editingCategoryId = null;
+
+    categoryFormContainer.hidden = true;
+
+    categoryFormMessage.textContent = "";
+}
+
+
+/* SAVE CATEGORY */
+
+categoryForm.addEventListener("submit", async event => {
+
+    event.preventDefault();
+
+    const name = categoryName.value.trim();
+
+    if (!name) return;
+
+    saveCategoryButton.disabled = true;
+    saveCategoryButton.textContent = "Saving...";
+
+    try {
+
+        const duplicate = categories.find(category =>
+            category.name.toLowerCase() === name.toLowerCase() &&
+            category.id !== editingCategoryId
+        );
+
+        if (duplicate) {
+            throw new Error("This category already exists.");
+        }
+
+        if (editingCategoryId) {
+
+            const oldCategory = categories.find(category =>
+                category.id === editingCategoryId
+            );
+
+            if (!oldCategory) {
+                throw new Error("Category not found.");
+            }
+
+            // Update existing products using the old category name.
+            if (oldCategory.name !== name) {
+
+                const { error: productError } = await supabaseClient
+                    .from("products")
+                    .update({ category: name })
+                    .eq("category", oldCategory.name);
+
+                if (productError) throw productError;
+            }
+
+            const { error } = await supabaseClient
+                .from("categories")
+                .update({
+                    name,
+                    updated_at: new Date().toISOString()
+                })
+                .eq("id", editingCategoryId);
+
+            if (error) throw error;
+
+        } else {
+
+            const { error } = await supabaseClient
+                .from("categories")
+                .insert({ name });
+
+            if (error) throw error;
+        }
+
+        categoryFormMessage.style.color = "#08734C";
+        categoryFormMessage.textContent = editingCategoryId
+            ? "Category updated successfully!"
+            : "Category added successfully!";
+
+        await loadCategories();
+        await loadProducts();
+
+        setTimeout(closeCategoryForm, 800);
+
+    } catch (error) {
+
+        console.error("Category save error:", error);
+
+        categoryFormMessage.style.color = "#dc3545";
+        categoryFormMessage.textContent =
+            error.message || "Unable to save category.";
+
+    } finally {
+
+        saveCategoryButton.disabled = false;
+
+        saveCategoryButton.innerHTML = editingCategoryId
+            ? '<i class="fas fa-save"></i> Update Category'
+            : '<i class="fas fa-save"></i> Save Category';
+    }
+});
+
+
+/* CATEGORY BUTTON EVENTS */
+
+addCategoryButton.addEventListener("click", () => {
+    openCategoryForm();
+});
+
+cancelCategoryButton.addEventListener("click", closeCategoryForm);
+
+
+/* EDIT AND DELETE CATEGORY */
+
+categoryTableBody.addEventListener("click", async event => {
+
+    const editButton = event.target.closest(".edit-category-btn");
+    const deleteButton = event.target.closest(".delete-category-btn");
+
+    if (editButton) {
+
+        const category = categories.find(item =>
+            item.id === editButton.dataset.id
+        );
+
+        if (category) openCategoryForm(category);
+
+        return;
+    }
+
+    if (deleteButton) {
+
+        const category = categories.find(item =>
+            item.id === deleteButton.dataset.id
+        );
+
+        if (!category) return;
+
+        const hasProducts = products.some(product =>
+            product.category === category.name
+        );
+
+        if (hasProducts) {
+            alert(
+                "This category cannot be deleted because products are assigned to it. Reassign those products first."
+            );
+            return;
+        }
+
+        if (!confirm(
+            `Are you sure you want to delete "${category.name}"?`
+        )) return;
+
+        deleteButton.disabled = true;
+
+        try {
+
+            const { error } = await supabaseClient
+                .from("categories")
+                .delete()
+                .eq("id", category.id);
+
+            if (error) throw error;
+
+            await loadCategories();
+
+            alert("Category deleted successfully.");
+
+        } catch (error) {
+
+            console.error("Category deletion error:", error);
+
+            alert(
+                error.message || "Unable to delete category."
+            );
+
+            deleteButton.disabled = false;
+        }
+    }
+});
+
+
+
     /* DATA */
 
     let products = [];
@@ -441,8 +836,23 @@ productTableBody.addEventListener("click", async event => {
         productForm.reset();
 
         productName.value = product.product_name || "";
-        productCategory.value = product.category || "";
-        productDescription.value = product.description || "";
+
+const existingCategory = product.category || "";
+
+if (
+    existingCategory &&
+    !Array.from(productCategory.options).some(
+        option => option.value === existingCategory
+    )
+) {
+    const option = document.createElement("option");
+    option.value = existingCategory;
+    option.textContent = existingCategory;
+    productCategory.appendChild(option);
+}
+
+productCategory.value = existingCategory;
+productDescription.value = product.description || "";
 
         mainBranchStatus.value = getProductBranchStatus(
             product.id,
@@ -1096,10 +1506,11 @@ productForm.addEventListener("submit", async event => {
 
     try {
 
-        await loadBranches();
-        await loadProducts();
+    await loadBranches();
+    await loadCategories();
+    await loadProducts();
 
-    } catch (error) {
+} catch (error) {
 
         console.error("Dashboard loading error:", error);
 
